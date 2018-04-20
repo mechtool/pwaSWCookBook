@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Сеть или кэш: страница под контролем сервисного рабочего</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		body {
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+<script>
+	var imageNumber = 1,
+		img = document.createElement('img');
+	img.src = "/cacheStrategy?imageNumber="+imageNumber ;
+	img.className = 'mainImage';
+	img.onload = onLoadEnd;
+	document.body.appendChild(img) ;
+	function onLoadEnd(){
+		imageNumber = 10;
+		debugger;
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<mat-sidenav-container class="sideNav-container">
+	<mat-sidenav #sideNav class="sideNav-drawer" mode="side" opened="true">
+		<mat-toolbar color="primary" style="position: fixed">
+			<mat-toolbar-row>
+				<span>Оглавление</span>
+				<span class="sideNav-spacer"></span>
+				<button mat-icon-button>
+					<mat-icon class="sideNav-icon">help_outline</mat-icon>
+				</button>
+			</mat-toolbar-row>
+		</mat-toolbar>
+		<div class="itemsContainer" (click)="onClickSideNavItem($event)">
+			<app-side-nav-item *ngFor="let item of sideNavItems" [item]="item" style="direction: ltr"></app-side-nav-item>
+		</div>
+	</mat-sidenav>
+	<mat-sidenav-content class="sideNav-content">
+		<mat-toolbar color="primary">
+			<button mat-icon-button title="Меню">
+				<mat-icon class="sideNav-icon"  (click)="onClickButtonMenu()">menu</mat-icon>
+			</button>
+			<span class="titleToolBar">{{appTitle}}</span>
+			<span class="sideNav-spacer"></span>
+			<div #buttonPanel class="buttonPanel">
+				<a *ngFor="let item of menuButtons" mat-button [disabled]="item.disable" [title]="item.text" (click)="onClickToolBarMenu(item.link)">{{item.text}}
+					<mat-icon *ngIf="item.icon" class="sideNav-icon" >{{item.icon}}</mat-icon>
+				</a>
+			</div>
+		</mat-toolbar>
+		<div class="routerOutletContainer">
+			<router-outlet></router-outlet>
+			<router-outlet name="aux"></router-outlet>
+		</div>
+	</mat-sidenav-content>
+
+</mat-sidenav-container>

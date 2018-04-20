@@ -1,0 +1,41 @@
+.sideNav-container {
+    width: 100%;
+    height: 100%;
+}
+.sideNav-drawer{
+    overflow: hidden;
+}
+.itemsContainer{
+    direction: rtl;
+    overflow: auto;
+    margin-top: 64px;
+    height: calc(100% - 64px);
+}
+.sideNav-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: start;
+    justify-content: start;
+}
+.sideNav-icon {
+    margin-top: -3px;
+}
+.titleToolBar{
+    margin: 0 24px;
+}
+.sideNav-spacer {
+    flex: 1 1 auto;
+}
+.buttonPanel a:hover{
+   background: rgb(86, 173, 255);
+}
+.activeMenuButton{
+    background: rgba(80, 169, 255, 0.45);
+    border-bottom: 2px solid #ff2aef;
+}
+.routerOutletContainer{
+    height: calc(100vh - 64px);
+    overflow: auto;
+    width: 100%;
+}

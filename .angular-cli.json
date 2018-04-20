@@ -9,7 +9,8 @@
       "outDir": "dist",
       "assets": [
         "assets",
-        "favicon.ico"
+        "favicon.ico",
+        "404.html"
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -60,8 +61,8 @@
       "spec": false
     },
     "component": {
-      "inlineStyle": true,
-      "inlineTemplate": true,
+      "inlineStyle": false,
+      "inlineTemplate": false,
       "spec": false
     },
     "directive": {

@@ -1,1 +1,73 @@
-/* You can add global styles to this file, and also import other style files */
+/*@import "~@angular/material/prebuilt-themes/indigo-pink.css";*/
+@import "normalize.css";
+@import "../appTheme/theme.css";
+@font-face {
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 400;
+    src: url("/assets/fonts/Oswald-Regular.ttf");
+}
+@font-face {
+    font-family: 'Oswald Light';
+    font-style: normal;
+    font-weight: 300;
+    src: url("/assets/fonts/Oswald-Light.ttf");
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+    font-family: "Oswald Light", sans-serif;
+    line-height: 20px;
+}
+h1,h2,h3,h4,h5,h6{
+    font-weight: 300;
+}
+*[class^='mat'], mat-card{
+    font-family: "Oswald Light", sans-serif !important;
+    letter-spacing: 0.02em;
+    line-height: 20px;
+}
+.mat-tooltip{
+    font-size: 12px!important;
+}
+/*---------------------colors---------------------------------*/
+.dark-grey{
+    color: grey;
+}
+.dark-blue{
+    color: #000a89;
+}
+.dark-lite{
+    color : #008b8a;
+}
+.dark-purple{
+    color: #800080;
+}
+.dark-red{
+    color: #a31a00;
+}
+.dark-green{
+    color: #008916;
+}
+.dark-brown{
+    color: #904700;
+}
+.dark-yellow{
+    color: #cda900;
+}
+.dark-orange{
+    color: #e09600;
+}
+.dark-gr{
+    background: grey;
+}
+.dark-pr{
+     background: rgb(160, 1, 0);
+}
+.dark-nv{
+    background: rgb(33, 160, 26)
+}
+.dark-sr{
+    background: rgb(225, 104, 0)
+}
