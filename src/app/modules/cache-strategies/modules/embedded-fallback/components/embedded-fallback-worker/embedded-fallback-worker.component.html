@@ -1,0 +1,89 @@
+<mat-card xmlns="http://www.w3.org/1999/html">
+	<p>Небольшие изменения в файле приложения, определяющие интерфейс активации пользователя. Стилевой файл опущен.</p>
+	<app-code-block [context]="{header : 'Изменения в файле клиента controlled.html ', ext : 'controlled.html', backgroundColor : '#eeeeee'}" ><span class="dark-blue" >...
+   &#60;body &#62;
+      &#60;img src=</span><span class="dark-green" >""</span> <span class="dark-blue" >alt=</span><span class="dark-green" >"sample asset"</span><span class="dark-blue" >&#62;
+   &#60;script src=</span><span class="dark-green" >"controlled.js"</span><span class="dark-blue">&#60;/script&#62;
+&#60;/body&#62;</span></app-code-block>
+	<p>Файл обработки сообщения от сервисного рабочего:</p>
+	<app-code-block [context]="{header : 'Обработка запуска файла клиента сервисного рабочего', ext : 'controlled.js', backgroundColor : '#eeeeee'}" >
+<span class="dark-grey">//Когда загружается этот файл, то следует быстрая проверка
+//определяющая то, находится ли данный файл под контролем
+//активного сервисного рабочего </span>
+<span class="dark-blue" >if (</span><span class="dark-purple" >navigator.</span><span class="dark-blue" >serviceWorker.controller) &#123;</span>
+   <span class="dark-grey">//Загружаем встроенный код</span>
+   <span class="dark-blue" >loadImage();</span>
+   <span class="dark-grey">//если нет, то ждем изменения статуса на активный и
+   //запускаем тот же метод</span>
+<span class="dark-blue" >&#125; else &#123; </span>
+   <span class="dark-purple" >navigator.</span><span class="dark-blue" >serviceWorker.oncontrollerchange = </span><span class="dark-lite" >function()</span><span class="dark-blue" >&#123;
+      this.controller.onstatechange = </span><span class="dark-lite" >function()</span><span class="dark-blue" >&#123;
+         if (this.state === </span><span class="dark-green" >'activated'</span><span class="dark-blue" >) &#123;
+            loadImage();
+         &#125;
+       &#125;;
+    &#125;;
+&#125;
+function loadImage() &#123; </span>
+   <span class="dark-grey">//ставим адрес для ресурсного файла, что
+   //приведет к попытки загрузки его с сервера</span>
+   <span class="dark-blue" >document.querySelector(</span><span class="dark-green" >'img'</span><span class="dark-blue" >).src = </span><span class="dark-green" >'./missing'</span><span class="dark-blue" >;
+&#125; </span></app-code-block>
+	<h4 class="scriptTextHeader">service-worker.js</h4>
+	<p>Файл сервисного рабочего,загружается индексным скриптом приложения, реализующий логику кэширования данной стратегии.</p>
+	<app-code-block [context]="{header : 'Файл сервисного рабочего', ext : 'service-worker.js', backgroundColor : '#eeeeee'}" >
+<span class="dark-grey">//имя кэша помещаем в переменную</span>
+<span class="dark-blue" >let CACHE = </span><span class="dark-green" >'embedded-fallback'</span><span class="dark-blue" >;</span>
+<span class="dark-grey">// При событии установки сервисного рабочего запустить предварительное кэширование ресурсов.</span>
+<span class="dark-purple" >self.</span><span class="dark-blue" >addEventListener(</span><span class="dark-green" >'install'</span><span class="dark-lite" >, function(</span><span class="dark-red" >evt</span><span class="dark-blue" >) &#123;
+      console.log(</span><span class="dark-green" >'Сервисный рабочий установлен.'</span><span class="dark-blue" >);</span>
+   <span class="dark-grey">// Отложенная активация сервисного рабочего до момента окончания предварительного кэширования ресурсов</span>
+   <span class="dark-red" >evt.</span><span class="dark-blue" >waitUntil(precache().then(function()&#123;</span>
+      <span class="dark-grey">//Принудительно активируем сервисного рабочего для немедленного
+      //контроля над клиентами без ожидания их перезагрузки</span>
+         <span class="dark-blue" >return </span><span class="dark-purple" >self.</span><span class="dark-blue" >skipWaiting();
+   &#125;));
+&#125;);</span>
+<span class="dark-grey">//При событии активации сервисного рабочего</span>
+<span class="dark-purple" >self.</span><span class="dark-blue" >addEventListener(</span><span class="dark-green" >'activate'</span><span class="dark-blue" >, function (</span><span class="dark-red" >evt</span><span class="dark-blue" >) &#123;</span>
+<span class="dark-grey">// `self.clients.claim()` - позволяет сервисному рабочему начать
+// перехват запросов немедленно.</span>
+   <span class="dark-red" >evt.</span><span class="dark-blue" >waitUntil(</span><span class="dark-purple" >self.</span><span class="dark-blue" >clients.claim());
+&#125;);  </span>
+<span class="dark-grey">// При событии запроса картинки с контролируемой странице </span>
+<span class="dark-purple" >self.</span><span class="dark-blue" >addEventListener(</span><span class="dark-green" >'fetch'</span><span class="dark-blue" >, function(</span><span class="dark-red" >evt</span><span class="dark-blue" >) &#123;
+   console.log(</span><span class="dark-green" >'Сервисный рабочий работает с клиентом.'</span><span class="dark-blue" >);</span>
+   <span class="dark-red" >evt.</span><span class="dark-blue" >respondWith(networkOrFallback(</span><span class="dark-red" >evt.</span><span class="dark-blue" >request));
+&#125;); </span>
+<span class="dark-grey">// Это упрощенная версия обращения в сеть, затем
+// перехода в кэш без ожидания для илюстрации обработки ошибки запроса, т.е.
+//когда запрос на сервер за ресурсом оказался неудачным</span>
+<span class="dark-blue" >function networkOrFallback(</span><span class="dark-red" >request</span><span class="dark-blue" >) &#123;
+   return </span><span class="dark-purple" >fetch(</span><span class="dark-red" >request</span><span class="dark-blue" >).then(function (</span><span class="dark-red" >response</span><span class="dark-blue" >) &#123;
+      return </span><span class="dark-red" >response.</span><span class="dark-blue" >url.indexOf(</span><span class="dark-green" >'missing'</span><span class="dark-blue" >) < 0  ? </span><span class="dark-red" >response</span><span class="dark-blue" >: useFallback();
+   &#125;)
+&#125;</span>
+<span class="dark-grey">// Функция предварительного кэширования ресурсов - открывает (создает) кэш по имени<br> и добавляет в него ресурсы находящиеся в папке 'controlled', перечисленные списком. <br>Возвращает разрешенный промис, если вся загрузка прошла успешно, что является индикатором <br>для активации сервисного рабочего. </span>
+<span class="dark-lite" >function</span> <span class="dark-blue" >precache() &#123;
+   return </span><span class="dark-purple" >caches.</span><span class="dark-blue" >open(CACHE).then(</span><span class="dark-lite" >function (</span><span class="dark-red" >cache</span><span class="dark-blue" >) &#123;
+      return </span><span class="dark-red" >cache.</span><span class="dark-blue" >addAll([ </span>
+         <span class="dark-grey">// кэширование контролируемой страницы  </span>
+         <span class="dark-green" >'/controlled/cache-update-refresh-controlled.html'</span>
+      <span class="dark-blue" >]);
+   &#125;);
+&#125;</span>
+<span class="dark-grey">// Этот резервный ресурс - встроенный в код SVG </span>
+<span class="dark-blue" >var FALLBACK =</span>
+   <span class="dark-green" >`&#60;svg xmlns="http://www.w3.org/2000/svg" width="200" height="180" stroke-linejoin="round"&#62;
+   &#60;path stroke="#DDD" stroke-width="25" d="M99,18 15,162H183z"/&#62;
+   &#60;path stroke-width="17" fill="#FFF" d="M99,18 15,162H183z" stroke="#eee"/&#62;
+   &#60;path d="M91,70a9,9 0 0,1 18,0l-5,50a4,4 0 0,1-8,0z" fill="#aaa"/&#62;
+   &#60;circle cy="138" r="9" cx="100" fill="#aaa"/&#62;
+   &#60;/svg&#62;`;</span>
+<span class="dark-grey">// Этот метод возвращает встроенный в код ресурс. </span>
+<span class="dark-blue" >function useFallback() &#123;
+   return </span><span class="dark-purple" >Promise.</span><span class="dark-blue" >resolve(new </span><span class="dark-purple" >Response</span><span class="dark-blue" >(FALLBACK, &#123; headers: &#123;
+      </span><span class="dark-green" >'Content-Type' : 'image/svg+xml' </span>
+   <span class="dark-blue" >&#125;&#125;));
+&#125;</span></app-code-block>
+</mat-card>

@@ -1,0 +1,9 @@
+<div class="recipesList">
+	<a class="recipe" style="position: relative" *ngFor="let item of list" (click)="onClickRecipe(item.link)">
+		<div class="leftColorStick" [style.background-color]="item.color">{{item.mark}}</div>
+		<div class="rightText">
+			<h2 class="itemHeader">{{item.header}}</h2>
+			<p class="itemText" [innerHtml]="sanitizer.bypassSecurityTrustHtml(item.text)"></p>
+		</div>
+	</a>
+</div>

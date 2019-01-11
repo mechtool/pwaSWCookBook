@@ -1,0 +1,37 @@
+<mat-card >
+	<h4 class="scriptTextHeader">service-worker.js</h4>
+	<p>Файл сервисного рабочего,загружается индексным скриптом приложения, реализующий логику кэширования данной стратегии.</p>
+	<app-code-block [context]="{header : 'Файл сервисного рабочего', ext : 'service-worker.js', backgroundColor : '#eeeeee'}" >
+<span class="dark-grey">//имя кэша помещаем в переменную</span>
+<span class="dark-blue" >let CACHE = </span><span class="dark-green" >'network-or-cache'</span><span class="dark-blue" >;</span>
+<span class="dark-grey">// При событии установки сервисного рабочего запустить предварительное кэширование ресурсов.</span>
+<span class="dark-purple" >self.</span><span class="dark-blue" >addEventListener(</span><span class="dark-green" >'install'</span><span class="dark-lite" >, function(</span><span class="dark-red" >evt</span><span class="dark-blue" >) &#123;
+      console.log(</span><span class="dark-green" >'Сервисный рабочий установлен.'</span><span class="dark-blue" >);</span>
+   <span class="dark-grey">// Отложенная активация сервисного рабочего до момента окончания предварительного кэширования ресурсов</span>
+      <span class="dark-red" >evt.</span><span class="dark-blue" >waitUntil(precache());
+&#125;);</span>
+
+<span class="dark-grey">// При событии запроса картинки с контролируемой страницы (из папки controlled) </span>
+<span class="dark-purple" >self.</span><span class="dark-blue" >addEventListener(</span><span class="dark-green" >'fetch'</span><span class="dark-lite" >, function(</span><span class="dark-red" >evt</span><span class="dark-blue" >) &#123;
+   console.log(</span><span class="dark-green" >'Сервисный рабочий работает с клиентом.'</span><span class="dark-blue" >);</span>
+   <span class="dark-grey">//Сразу берем копию из кэша.</span>
+   <span class="dark-red" >evt.</span><span class="dark-blue" >respondWith(fromCache(</span><span class="dark-red" >evt.</span><span class="dark-blue" >request)
+&#125;);</span>
+<span class="dark-grey">// Функция предварительного кэширования ресурсов - открывает (создает) кэш по имени<br> и добавляет в него ресурсы находящиеся в папке 'controlled', перечисленные списком. <br>Возвращает разрешенный промис, если вся загрузка прошла успешно, что является индикатором <br>для активации сервисного рабочего. </span>
+<span class="dark-lite" >function</span> <span class="dark-blue" >precache() &#123;
+   return </span><span class="dark-purple" >caches.</span><span class="dark-blue" >open(CACHE).then(</span><span class="dark-lite" >function (</span><span class="dark-red" >cache</span><span class="dark-blue" >) &#123;
+      return </span><span class="dark-red" >cache.</span><span class="dark-blue" >addAll([ </span>
+         <span class="dark-green" >'/controlled/cache-only-demo-controlled.html',
+         '/cacheStrategy',</span><span class="dark-grey">// кэширование котролируемой страницы и первой картинки </span>
+      <span class="dark-blue" >]);
+   &#125;);
+&#125;</span>
+<span class="dark-grey">// Открывает кэш, где хранится ресурс, производится его поиск. <br>В случае его отсутствия, управление все равно передается в первую функцию с результатом `undefined`, <br>результат которого возвращается через новый отвергнутый промис со строкой.. </span>
+<span class="dark-lite" >function</span> <span class="dark-blue" >fromCache(</span><span class="dark-red" >request</span><span class="dark-blue" >) &#123;
+   return </span><span class="dark-purple" >caches.</span><span class="dark-blue" >open(CACHE).then(function (</span><span class="dark-red" >cache</span><span class="dark-blue" >) &#123;
+      return </span><span class="dark-purple" >cache.</span><span class="dark-blue" >match(</span><span class="dark-red" >request</span><span class="dark-blue" >).then(function (matching) &#123;
+         return matching || </span><span class="dark-purple" >Promise.reject(</span><span class="dark-green" >'ничего не найдено'</span><span class="dark-blue" >);
+      &#125;);
+   &#125;);
+&#125;</span></app-code-block>
+</mat-card>

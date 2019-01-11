@@ -1,0 +1,6 @@
+<div class="tipContainer" [style.border-color]="context.color" >
+	<mat-icon class="sideNav-icon" [style.color]="context.color" *ngIf="context.icon">{{context.icon}}</mat-icon>
+	<span class="tipText" [style.color]="context.color">
+		<ng-content></ng-content>
+	</span>
+</div>

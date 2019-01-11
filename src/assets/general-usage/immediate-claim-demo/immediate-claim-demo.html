@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Немедленный контроль</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+	<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+	<style>
+		.appContainer{
+			display: flex;
+			flex-flow: column nowrap;
+			justify-content: center;
+			align-items: center;
+			align-content: center;
+		}
+		.dark-red{
+			color: darkred;
+		}
+	</style>
+</head>
+<body>
+<div class="appContainer">
+	<div class="imageContainer">
+		<p>Случайно выбираемая при загрузке картинка. [Версия <em id="version">-</em>]</p>
+		<img src="./default.jpg" id="random" width="200" height="100">
+	</div>
+	<div class="eventsContainer">
+		<div>Активируемые события:</div>
+		<div><span class="dark-red">При загрузке</span> - <span id="onload">Ожидается …</span> </div>
+		<div><span class="dark-red">При изменении контроллера</span> - <span id="oncontrollerchange">Не запущено</span></div>
+		<div><span class="dark-red">При регистрации</span> - <span id="register">Регистрировать нечего</span>
+		</div>
+	
+	</div>
+	
+	<button id="update" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Обновить сервисного рабочего</button>
+</div>
+<script src="./index.js"></script>
+</body>
+</html>

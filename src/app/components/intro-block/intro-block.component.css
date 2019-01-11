@@ -1,0 +1,22 @@
+mat-card{
+    margin: 24px;
+}
+.introHeader{
+    margin-top: 0;
+}
+.introHeader,.complexity,.category{
+    display: inline-block;
+}
+.category,.complexity{
+    padding: 16px;
+    color: white;
+}
+.complexity{
+    margin-right: 24px;
+}
+.category{
+    padding: 16px 20px;
+}
+.introText{
+    color: #004cb0;
+}

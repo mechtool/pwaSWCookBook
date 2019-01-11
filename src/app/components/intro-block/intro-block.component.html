@@ -1,0 +1,8 @@
+<mat-card >
+	<div class="category" [ngClass]="context.category.class" title="{{context.title}}" >{{context.category.text}}</div><div class="complexity" [ngClass]="context.complexity.class" [title]="context.complexity.tip">{{context.complexity.text}}</div>
+	<h2 class="introHeader">{{context.header}}</h2>
+	<p class="introText" [innerHTML]="sanitizer.bypassSecurityTrustHtml(context.introText)"></p>
+	<app-tip-block [context]="{color : '#00808a', icon : 'error_outline'}">
+		<span class="tipBlockText" style="font-style: italic" [innerHTML]="sanitizer.bypassSecurityTrustHtml(context.tipBlockText)"></span>
+	</app-tip-block>
+</mat-card>

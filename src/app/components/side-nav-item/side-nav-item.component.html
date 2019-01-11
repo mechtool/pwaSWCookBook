@@ -1,0 +1,27 @@
+<div class="block0" (click)="onClickSideNavItem($event)">
+	<a [routerLink]="item.href" [ngClass]="item.className">
+		<div class="itemBlock itemBlock0">
+			<div class="itemIconGroup" [style.background-color]="item.color">{{item.title}}</div>
+			<span>{{item.text}}</span>
+			<mat-icon *ngIf="item.icon" class="sideNav-icon">{{item.icon}}</mat-icon>
+		</div>
+	</a>
+	<div class="block1" *ngFor="let child of item.children" (click)="onClickSideNavItem($event)">
+		<a  [routerLink]="child.href" [ngClass]="child.className">
+			<div class="itemBlock itemBlock1">
+				<div class="itemIcon" [style.background-color]="child.color" >{{child.title}}</div>
+				<span>{{child.text}}</span>
+				<mat-icon *ngIf="child.icon" class="sideNav-icon">{{child.icon}}</mat-icon>
+			</div>
+		</a>
+		<div class="block2" *ngFor="let child1 of child.children" (click)="onClickSideNavItem($event)">
+			<a  [routerLink]="child1.href" [ngClass]="child1.className">
+				<div class="itemBlock itemBlock2">
+					<div class="itemIcon" [style.background-color]="child1.color" >{{child1.title}}</div>
+					<span>{{child1.text}}</span>
+					<mat-icon *ngIf="child1.icon" class="sideNav-icon">{{child1.icon}}</mat-icon>
+				</div>
+			</a>
+		</div>
+	</div>
+</div>

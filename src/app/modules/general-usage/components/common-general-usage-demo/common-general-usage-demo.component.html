@@ -1,0 +1,6 @@
+<div class="common-demo-container">
+	<h3>{{context.header}}</h3>
+	<iframe #iframe class="mainFrame" [src]="sanitizer.bypassSecurityTrustResourceUrl(context.src)" ></iframe>
+</div>
+
+

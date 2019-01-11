@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Страница под контролем сервисного рабочего</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		@font-face {
+			font-family: 'Oswald-Light';
+			font-style: normal;
+			font-weight: 400;
+			src: url("/assets/fonts/Oswald-Light.ttf");
+		}
+		#update-notice{
+			font-family: "Oswald-Light", sans-serif;
+			position: absolute; 
+			display: inline-block;
+			top: 0;
+			left: 0;
+			margin-left: calc(50% - 80px);
+			margin-top: 28%;
+			transition: transform 300ms;
+			transform: translateX(-250%);
+			z-index: 3;
+			background: rgba(110, 161, 255, 0.71);
+			
+		}
+		#update-notice.active{
+			transform: translateX(0);
+		}
+		#update{
+			padding: 12px;
+			margin: 16px;
+			background-color: #009a8f;
+			color: white;
+			cursor: pointer;
+			box-shadow: 0 0 20px #a9a9a9;
+		}
+		#update:active{
+			color: #ff0800;
+		}
+		.updateText{
+			padding: 10px 16px;
+			color: white;
+		}
+	</style>
+</head>
+
+<body style="text-align: center">
+	<img src="/cacheStrategy" alt="sample asset">
+	<div id="update-notice">
+		<div class="updateText">Картинка обновилась!</div>
+		<div id="update">Загрузить</div>
+	</div>
+	<script src="controlled.js"></script>
+</body>
+</html>

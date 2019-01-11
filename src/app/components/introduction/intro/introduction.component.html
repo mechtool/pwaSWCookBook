@@ -1,0 +1,11 @@
+<mat-card class="cardPage">
+	<h2>Введение.</h2>
+	<p>Сборник рецептов сервисного рабочего - коллекция рабочих, практичных примеров использования сервисного рабочего в современных веб приложениях (сайтах)</p>
+	<app-tip-block [context]="{color : '#00808a', icon : 'error_outline'}">
+		<span style="font-style: italic">Примечание : Откройте консоль <span class="dark-red">Dew Tools</span> для просмотра событий <span class="dark-red">fetch</span> и информационных сообщений о том, что описывает каждый рецепт сервисного рабочего. </span>
+	</app-tip-block>
+	<h2>Авторство.</h2>
+	<p>Этот сборник рецептов был создан <a target="_blank" href="https://www.mozilla.org/ru/firefox/">Mozilla</a> в сотрудничестве с сообществом разработчиков. Все источники кода доступны на <a target="_blank" href="https://github.com/mozilla/serviceworker-cookbook">GitHub</a>. Сотрудничество и вопросы приветствуются.</p>
+	<h2>Сборник примеров</h2>
+	<app-flex-list [list]="recipes"></app-flex-list>
+</mat-card>

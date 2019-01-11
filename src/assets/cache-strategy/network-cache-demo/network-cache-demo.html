@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Сеть или кэш</title>
+		<script type="text/javascript" src="./index.js"></script>
+		<style>
+			@font-face {
+				font-family: 'Oswald';
+				font-style: normal;
+				font-weight: 400;
+				src: url("/assets/fonts/Oswald-Regular.ttf");
+			}
+			@font-face {
+				font-family: 'Oswald Light';
+				font-style: normal;
+				font-weight: 300;
+				src: url("/assets/fonts/Oswald-Light.ttf");
+			}
+			
+			body{
+				font-family: "Oswald Light", sans-serif;
+				line-height: 20px;
+			}
+			.demoContainer{
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+			}
+			.iframesContainer{
+				display: flex;
+				justify-content: space-around;
+				align-items: stretch;
+			}
+			iframe{
+				width: calc(100% - 2px);
+				border: 1px solid rgb(179, 179, 179);
+			}
+			.card{
+				margin: 10px;
+				width: 45%;
+			}
+			.toolbarHeader{
+				font-size: 1.1em;
+				height: 64px;
+				line-height: 64px;
+				background: #f7f7f7;
+				text-indent: 16px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="demoContainer">
+			<div class="iframesContainer">
+				<div class="notControlledCard card">
+					<div class="toolbarHeader">Всегда синхронизирована с сервером.</div>
+					<iframe onload="onLoadIframe(event)"  class="notControlled" src="./not-controlled/network-cache-demo-not-controlled.html"></iframe>
+					<div>Запрос картинки происходит со страницы не контролируемой сервисным рабочим, поэтому при перезагрузке, адрес изображения всегда синхронизирован с адресом картинки, генерируемой сервером. Адрес новой картинки на сервере генерируется каждые 10 секунд.</div>
+				</div>
+				<div class="controlledCard card">
+					<div class="toolbarHeader">Сеть или кэш.</div>
+					<iframe onload="onLoadIframe(event)" class="controlled" src="./controlled/network-cache-demo-controlled.html"></iframe>
+					<div>Этот запрос исходит от контролируемой сервисным рабочим страницы, поэтому изображение будет загружено через него. Он будет пытаться получить обновленный контент с сервера, но только в том случае, если запрос будет длиться менее 400ms, иначе, он загрузит картинку из кэша.</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

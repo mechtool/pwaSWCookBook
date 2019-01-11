@@ -21,15 +21,15 @@
 			<span class="titleToolBar">{{appTitle}}</span>
 			<span class="sideNav-spacer"></span>
 			<div #buttonPanel class="buttonPanel">
-				<a *ngFor="let item of menuButtons" mat-button [disabled]="item.disable" [title]="item.text" (click)="onClickToolBarMenu(item.link)">{{item.text}}
+				<a *ngFor="let item of menuButtons" mat-button [disabled]="item.disable" [class.activeMenuButton]="item.activeMenuButton" [title]="item.text" (click)="onClickToolBarMenu(item.link)">{{item.text}}
 					<mat-icon *ngIf="item.icon" class="sideNav-icon" >{{item.icon}}</mat-icon>
 				</a>
 			</div>
 		</mat-toolbar>
+		<app-routing-progress></app-routing-progress>
 		<div class="routerOutletContainer">
 			<router-outlet></router-outlet>
 			<router-outlet name="aux"></router-outlet>
 		</div>
 	</mat-sidenav-content>
-
 </mat-sidenav-container>

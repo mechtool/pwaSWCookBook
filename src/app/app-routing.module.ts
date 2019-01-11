@@ -8,7 +8,9 @@ const routes: Routes = [
 	    {path : '' , pathMatch : 'full', redirectTo : '/introduction/intro'},
 	]},
     {path : 'caching-strategies', loadChildren : './modules/cache-strategies/cache-strategies.module#CacheStrategiesModule'} ,
-    {path : '' , pathMatch : 'full', redirectTo : '/introduction/intro'},
+	{path : 'web-push', loadChildren : './modules/web-push/web-push.module#WebPushModule'} ,
+	{path : 'general-usage', loadChildren : './modules/general-usage/general-usage.module#GeneralUsageModule'} ,
+	{path : '' , pathMatch : 'full', redirectTo : '/introduction/intro'},
     {path : '**', pathMatch : 'full', redirectTo : '/introduction/intro' }
 ];
 

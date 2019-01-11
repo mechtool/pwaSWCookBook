@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Получение удаленного ресурса</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+	<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+	<style>
+		@font-face {
+			font-family: 'Oswald-Light';
+			font-style: normal;
+			font-weight: 300;
+			src: url("../../fonts/Oswald-Light.ttf");
+		}
+		body {
+			font-family: monospace;
+			font-size: 1rem;
+			white-space: pre-wrap;
+		}
+		section {
+			display: block;
+		}
+		p {
+			padding-left: 5em;
+			margin-bottom: 0;
+			color: green;
+		}
+		p.error {
+			color: red;
+		}
+		img {
+			height: 100px;
+		}
+		table{
+			width: 100%;
+		}
+		.mdl-data-table th,.mdl-data-table td,.mdl-data-table section,.middle[class*="mdl-data-table"]{
+			font-family: "Oswald-Light", sans-serif;
+			text-align: center;
+			vertical-align: middle;
+			font-size: 16px;
+		}
+	</style>
+</head>
+<body>
+<!-- Логирование загрузки ресурсов через DOM элемент <img>-->
+<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+	<tbody>
+		<tr>
+			<td colspan="3" style="text-align: center">Условия запроса</td>
+			<td rowspan="2" style="text-align: center; vertical-align: middle;border-left: 1px solid rgba(0,0,0,.12)">Результат</td>
+		</tr>
+		<tr>
+			<td>Тип Запроса</td>
+			<td>Протокол</td>
+			<td>Заголовок</td>
+		</tr>
+		<tr>
+			<td colspan="4" style="text-align: center" class="middle mdl-data-table__cell--non-numeric">Получение ресурсов через элементы DOM</td>
+		</tr>
+		<tr>
+			<td>-</td>
+			<td>https</td>
+			<td>Access-Control-Allow-Origin=*</td>
+			<td><section id="img-https-acao"></section></td>
+		</tr>
+		<tr>
+			<td>-</td>
+			<td>https</td>
+			<td>no Access-Control-Allow-Origin=*</td>
+			<td><section id="img-https"></section></td>
+		</tr>
+		<tr>
+			<td>-</td>
+			<td>https</td>
+			<td>-</td>
+			<td><section id="img-http"></section></td>
+		</tr>
+		<!-- ##################### STANDARD FETCH ####################### -->
+		<tr>
+			<td colspan="4" class="middle mdl-data-table__cell&#45;&#45;non-numeric">Получение ресурсов по средствам Fetch API</td>
+		</tr>
+		<tr>
+			<td>cors</td>
+			<td>https</td>
+			<td>Access-Control-Allow-Origin=*</td>
+			<td><section id="https-acao-cors"></section></td>
+		</tr>
+		<tr>
+			<td>no cors</td>
+			<td>https</td>
+			<td>Access-Control-Allow-Origin=*</td>
+			<td><section id="https-acao-no-cors"></section></td>
+		</tr>
+		<tr>
+			<td>cors</td>
+			<td>https</td>
+			<td>no Access-Control-Allow-Origin=*</td>
+			<td><section id="https-no-cors"></section></td>
+		</tr>
+		<tr>
+			<td>no cors</td>
+			<td>https</td>
+			<td>no Access-Control-Allow-Origin=*</td>
+			<td><section id="https-cors"></section></td>
+		</tr>
+		<tr>
+			<td>cors</td>
+			<td>http</td>
+			<td>-</td>
+			<td><section id="http-cors"></section></td>
+		</tr>
+		<tr>
+			<td>no cors</td>
+			<td>https</td>
+			<td>-</td>
+			<td><section id="http-no-cors"></section></td>
+		</tr>
+		<!-- ##################### PROXY FETCH ####################### -->
+		<tr>
+			<td colspan="4" class="middle mdl-data-table__cell&#45;&#45;non-numeric">Получение ресурсов по средствам Fetch API через сервисного рабочего</td>
+		</tr>
+		<tr>
+			<td>cors</td>
+			<td>https</td>
+			<td>Access-Control-Allow-Origin=*</td>
+			<td><section id="proxy-https-acao-cors"></section></td>
+		</tr>
+		<tr>
+			<td>no cors</td>
+			<td>https</td>
+			<td>Access-Control-Allow-Origin=*</td>
+			<td><section id="proxy-https-acao-no-cors"></section></td>
+		</tr>
+		<tr>
+			<td>cors</td>
+			<td>https</td>
+			<td>no Access-Control-Allow-Origin=*</td>
+			<td><section id="proxy-https-cors"></section></td>
+		</tr>
+		<tr>
+			<td>no cors</td>
+			<td>https</td>
+			<td>no Access-Control-Allow-Origin=*</td>
+			<td><section id="proxy-https-no-cors"></section></td>
+		</tr>
+		<tr>
+			<td>cors</td>
+			<td>http</td>
+			<td>-</td>
+			<td><section id="proxy-http-cors"></section></td>
+		</tr>
+		<tr>
+			<td>no cors</td>
+			<td>http</td>
+			<td>-</td>
+			<td><section id="proxy-http-no-cors"></section></td>
+		</tr>
+	</tbody>
+</table>
+<script src="./index.js"></script>
+</body>
+</html>

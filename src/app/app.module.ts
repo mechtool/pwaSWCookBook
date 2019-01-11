@@ -35,11 +35,11 @@ import { IntroductionComponent } from './components/introduction/intro/introduct
     AppComponentsModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }) ,
     //------------------------material---------------------------------
-    MatSidenavModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatCardModule,
+	MatSidenavModule,
+	MatButtonModule,
+	MatToolbarModule,
+	MatIconModule,
+	MatCardModule,
   ],
   providers: [
       CommunicateService,

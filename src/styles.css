@@ -31,6 +31,26 @@ h1,h2,h3,h4,h5,h6{
 .mat-tooltip{
     font-size: 12px!important;
 }
+mat-card{
+    margin: 24px;
+}
+.scriptTextHeader{
+    color: #21a01a;
+    font-size: 22px;
+    margin-top: 0;
+}
+/*----------pointMark---------------------------------------*/
+.indexPointMark{
+    display: inline-block;
+    border: 1px solid #004ed6;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    text-indent: 9px;
+    line-height: 24px;
+    font-size: 12px;
+    font-family: "Oswald Light", sans-serif !important;
+}
 /*---------------------colors---------------------------------*/
 .dark-grey{
     color: grey;

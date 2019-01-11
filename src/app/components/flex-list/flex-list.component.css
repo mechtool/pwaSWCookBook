@@ -1,0 +1,40 @@
+.recipesList{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: start;
+    align-items: stretch;
+    align-content: center;
+}
+.recipe{
+    width: 300px;
+    flex: 1 1 auto;
+    margin: 10px;
+    min-height: 200px;
+    display: flex;
+    justify-content: start;
+    align-items: stretch;
+    text-decoration: none;
+    box-shadow: 0 0 20px #d9d9d9;
+    cursor: pointer;
+}
+.recipe:hover{
+    box-shadow: 0 0 20px #bfbfbf;
+}
+.recipe>div{
+    padding: 0 16px 16px 16px;
+}
+div.leftColorStick{
+    width: 16px;
+    color: white;
+    padding-top: 16px !important;
+}
+.itemHeader{
+    color: #00abb0;
+    text-align: center;
+}
+.itemText{
+    color: grey;
+}
+a:active .itemHeader, a:active .itemText{
+    color: #ff2b00;
+}
