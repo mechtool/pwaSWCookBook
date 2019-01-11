@@ -1,0 +1,37 @@
+.exampleCode{
+    position: relative;
+    text-indent: 20px;
+}
+.headerCode{
+    height: 46px;
+    line-height: 46px;
+    background-color: #e5e5e5;
+    font-size: 16px;
+}
+.exampleCode pre#preElem{
+    background-color: #f3f3f3;
+    overflow: auto;
+    margin-top: 0;
+    padding-right: 20px;
+}
+
+span.headerText, span.extension{
+    font-size: 16px!important;
+    color: #0040b0;
+}
+span.purple{
+    font-weight: 400 !important;
+}
+.icon{
+    position: absolute;
+    right: 58px;
+    top: 10px;
+    font-family: "Material Icons", sans-serif;
+}
+.extension{
+    position: absolute;
+    right: 20px;
+}
+#preElem{
+    padding: 0 16px 16px 16px;
+}

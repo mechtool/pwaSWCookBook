@@ -1,0 +1,74 @@
+<mat-card>
+		<p>Файл приложения отправки и отображения сообщений между сервисным рабочим и его клиентами.</p>
+		<app-code-block [context]="{header : 'Файл приложения', ext : 'index.html', backgroundColor : '#eeeeee'}" ><div class="dark-blue">
+&#60;!doctype html&#62;
+&#60;html xmlns="http://www.w3.org/1999/html"&#62;
+&#60;head&#62;
+&#60;meta charset="utf-8"&#62;
+&#60;meta name="viewport" content="width=device-width, initial-scale=1"&#62;
+&#60;link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"&#62;
+&#60;link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css"&#62;
+&#60;script defer src="https://code.getmdl.io/1.3.0/material.min.js"&#62;&#60;/script&#62;
+&#60;style&#62;
+   @font-face &#123;
+      font-family: 'Oswald-Light';
+      font-style: normal;
+      font-weight: 300;
+      src: url("../../fonts/Oswald-Light.ttf");
+   &#125;
+   body&#123;
+      font-family: "Oswald-Light", sans-serif;
+      line-height: 20px;
+      font-size: 16px;
+      margin: 0;
+   &#125;
+   .appContainer&#123;
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: start;
+      align-items: stretch;
+      align-content: center;
+      font-family: "Oswald-Light", sans-serif !important;
+      width: 100%;
+     padding: 16px
+   &#125;
+   .dark-red&#123;
+      color: darkred;
+   &#125;
+   #received, #message&#123;
+      color: #008000;
+      border: 1px solid green;
+      padding: 16px;
+      margin: 8px 0;
+   &#125;
+   textarea, button&#123;
+      width: 100%;
+   &#125;
+   textarea&#123;
+      position: relative;
+      box-sizing: border-box;
+   &#125;
+&#60;/style&#62;
+&#60;/head&#62;
+&#60;body&#62;
+   &#60;div class="appContainer demo-card-wide mdl-card mdl-shadow--2dp"&#62;
+   &#60;div&#62;
+      Статус поддержки сервисного рабочего: &#60;span id="status" class="dark-red"&#62;не поддерживается&#60;/span&#62;
+   &#60;/div&#62;
+   &#60;div&#62;Поле отображения активных (говорящих) клиентов&#60;/div&#62;
+   &#60;div id="received"&#62;&#60;span class="notActive dark-red"&#62;Активных клиентов нет&#60;/span&#62; &#60;/div&#62;
+   &#60;div&#62;Поле ниже - для сообщения текущего клиента своим предкам(если они есть).&#60;/div&#62;
+   &#60;div&#62;
+      &#60;textarea id="message" class="mdl-textfield__input" type="text" rows= "5"&#62;&#60;/textarea&#62;
+   &#60;/div&#62;
+   &#60;a href="message-relay-demo.html" target="_blank"&#62;
+      &#60;button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"&#62;
+         Открыть дочернюю закладку
+      &#60;/button&#62;
+   &#60;/a&#62;
+   &#60;/div&#62;
+   &#60;script src="./index.js"&#62;&#60;/script&#62;
+&#60;/body&#62;
+&#60;/html&#62;</div></app-code-block>
+	<app-common-general-usage-demo [context]="demoContext"></app-common-general-usage-demo>
+</mat-card>

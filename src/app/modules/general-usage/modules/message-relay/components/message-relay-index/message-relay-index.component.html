@@ -1,0 +1,51 @@
+<mat-card xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+	<h4 class="scriptTextHeader">index.js</h4>
+	<p>Файл регистрации сервисного рабочего, запускаемый со страницы файла приложения.</p>
+	<app-code-block [context]="{header : 'Скриптовый файл', ext : 'index.js', backgroundColor : '#eeeeee'}" >
+<span class="dark-blue" >(function() &#123;</span>
+<span class="dark-grey">// Проверка поддержки сервисного рабочего</span>
+   <span class="dark-blue" >if (</span><span class="dark-purple" >navigator.</span><span class="dark-blue" >serviceWorker) &#123; </span>
+   <span class="dark-grey">// Получаем элементы пользовательского интерфейса,
+	//для последующего отображения информации пользователю </span>
+      <span class="dark-blue" >var message = document.getElementById(</span><span class="dark-green" >'message'</span><span class="dark-blue" >);
+      var received = document.getElementById(</span><span class="dark-green" >'received'</span><span class="dark-blue" >);
+      var status = document.getElementById(</span><span class="dark-green" >'status'</span><span class="dark-blue" >);
+      var inbox = &#123;&#125;;</span>
+      <span class="dark-grey">//Инициализация переменной статуса поддержки.</span>
+      <span class="dark-blue" >status.textContent = </span><span class="dark-green" >'Поддерживается';</span>
+      <span class="dark-grey">//Регистрация сервисного рабочего</span>
+      <span class="dark-purple" >navigator.</span><span class="dark-blue" >serviceWorker.register(</span><span class="dark-green" >'service-worker.js'</span><span class="dark-blue" >).then((</span><span class="dark-red" >registration</span><span class="dark-blue" >)=>&#123;
+         console.log(</span><span class="dark-red" >registration.</span><span class="dark-blue" >scope) ;
+   &#125;);</span>
+   <span class="dark-grey">//Установка обработчика получения сообщений от сервисного рабочего</span>
+   <span class="dark-purple" >navigator</span><span class="dark-blue" >.serviceWorker.addEventListener(</span><span class="dark-green" >'message'</span><span class="dark-blue" >, function(</span><span class="dark-red" >event</span><span class="dark-blue" >) &#123; </span>
+      <span class="dark-grey">//При получении сообщения, отображаем его как активного клиента </span>
+      <span class="dark-blue" >var clientId = </span><span class="dark-red" >event.</span><span class="dark-blue" >data.client, node, notActive = received.querySelector(</span><span class="dark-green" >'.notActive'</span><span class="dark-blue" >) ; </span>
+      <span class="dark-grey">//Удаляем предупреждение об отсутствующих неактивных клиентах</span>
+      <span class="dark-blue" >notActive && received.removeChild(notActive);</span>
+   <span class="dark-grey">//Сообщение от клиента получено в первый раз, поэтому
+   //нужно определить ему место в интерфейсе и запомнить во вспомогательном объекте inbox </span>
+      <span class="dark-blue" >if (!inbox[clientId]) &#123;
+         node = document.createElement(</span><span class="dark-green" >'div'</span><span class="dark-blue" >);
+         received.appendChild(node);
+         inbox[clientId] = node;
+      &#125; </span>
+      <span class="dark-grey">//Отобразить сообщение, указав его идентификатор </span>
+      <span class="dark-blue" >node = inbox[clientId];
+      node.textContent = </span><span class="dark-green" >'Клиент с идентификатором '</span><span class="dark-blue" >+ clientId + </span><span class="dark-green" >' сообщает: '</span><span class="dark-blue" >+ </span><span class="dark-red" >event</span><span class="dark-blue" >.data.message;</span>
+      <span class="dark-purple" >window.</span><span class="dark-blue" >frameElement && (</span><span class="dark-purple" >window.</span><span class="dark-blue" >frameElement.style.height = </span><span class="dark-purple" >window.</span><span class="dark-blue" >document.body.clientHeight + </span><span class="dark-green" >'px'</span><span class="dark-blue" >) ;
+   &#125;); </span>
+   <span class="dark-grey">//Обработчик события ввода символов в поле ввода</span>
+   <span class="dark-blue" >message.addEventListener(</span><span class="dark-green" >'input'</span><span class="dark-blue" >, function() &#123;</span>
+      <span class="dark-grey">//Если эту страницу не поддерживает сервисный рабочий,то и нет отправителя</span>
+      <span class="dark-blue" >if (!navigator.serviceWorker.controller) &#123;</span>
+         <span class="dark-grey">//сообщаем об отсутствии отправителя  </span>
+            <span class="dark-blue" >status.textContent = </span><span class="dark-green" >'ошибка : нет контроллера'</span><span class="dark-blue" >;
+            return;
+         &#125; </span>
+         <span class="dark-grey">// Отправитель существует, передаем сообщение через него </span>
+         <span class="dark-purple" >navigator.</span><span class="dark-blue" >serviceWorker.controller.postMessage(message.value);
+      &#125;);
+   &#125;
+&#125;)(); </span></app-code-block>
+</mat-card>

@@ -1,0 +1,19 @@
+<mat-card>
+	<h2>Общее использование</h2>
+	<p>Этот группирующий блок содержит общие подходы в использовании сервисного рабочего. В нем используется единая основа состоящая из одного фрейма, в который загружается <span class="dark-purple">HTML</span> документ, соответствующий определенному примеру. Такая структура позволяет загружать своего сервисного рабочего в отдельный документ, избегая неразберихи сервисных рабочих при отладке.</p>
+	<app-flex-list [list]="recipes"></app-flex-list>
+	<app-code-block [context]="{header : 'Базовый файл примеров', ext : 'index.html', backgroundColor : '#eeeeee'}">
+<!--		<!DOCTYPE html>
+		<html lang="en">
+		<head>
+			<meta charset="UTF-8">
+			<title>Сеть или кэш <title>
+				<script type="text/javascript" src="./index.js"</script>
+				</head>
+				<body>
+					<iframe src=""></iframe>
+				</body>
+		</html>-->
+	</app-code-block>
+
+</mat-card>

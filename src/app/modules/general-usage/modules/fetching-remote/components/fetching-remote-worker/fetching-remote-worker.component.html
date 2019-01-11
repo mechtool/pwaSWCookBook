@@ -1,0 +1,27 @@
+<mat-card >
+	<h4 class="scriptTextHeader">service-worker.js</h4>
+	<p>Файл сервисного рабочего,загружается индексным скриптом приложения, реализующий логику кэширования данной стратегии.</p>
+	<app-code-block [context]="{header : 'Файл сервисного рабочего', ext : 'service-worker.js', backgroundColor : '#eeeeee'}" >
+<span class="dark-grey">// Создаем прокси для всех запросов на локальные
+// адреса содержащие подстроку `cookbook-proxy`</span>
+<span class="dark-purple" >self</span><span class="dark-blue" >.onfetch = function(</span><span class="dark-red" >event</span><span class="dark-blue" >) &#123;  </span>
+   <span class="dark-grey">//Проверка вхождения подстроки</span>
+   <span class="dark-blue" >if (</span><span class="dark-red" >event</span><span class="dark-blue" >.request.url.includes(</span><span class="dark-green" >'cookbook-proxy'</span><span class="dark-blue" >)) &#123;</span>
+      <span class="dark-grey">//Формирование объекта свойств запроса</span>
+      <span class="dark-blue" >var init = &#123; </span>
+         <span class="dark-brown" >method : </span><span class="dark-green" >'GET'</span><span class="dark-brown" >,
+         mode : </span><span class="dark-red" >event.</span><span class="dark-blue" >request.mode,</span>
+         <span class="dark-brown" >cache : </span><span class="dark-green" >'default'</span>
+      <span class="dark-blue" >&#125;;</span>
+      <span class="dark-grey">//Выделение действительного адреса строки запроса </span>
+      <span class="dark-blue" >var url = </span><span class="dark-red" >event.</span><span class="dark-blue" >request.url.split(</span><span class="dark-green" >'cookbook-proxy/'</span><span class="dark-blue" >)[1]; </span>
+      <span class="dark-grey">//логирование действий</span>
+      <span class="dark-blue" >console.log(</span><span class="dark-green" >'DEBUG: проксирование'</span><span class="dark-blue" >, url); </span>
+      <span class="dark-grey">//Формирование запроса и ответ результатом  </span>
+      <span class="dark-red" >event.</span><span class="dark-blue" >respondWith(fetch(url, init));
+   &#125; else &#123;</span>
+      <span class="dark-grey">//Формирование запроса на основе не измененного адреса</span>
+      <span class="dark-red" >event.</span><span class="dark-blue" >respondWith(fetch(</span><span class="dark-red" >event.</span><span class="dark-blue" >request));
+   &#125;
+&#125;</span></app-code-block>
+</mat-card>

@@ -1,0 +1,16 @@
+1. Запуск Angular cli:  ng new  <имя проекта> --routing true --minimal true --service-worker.
+2. Загрузка библиотек: npm i lite-server (добавить файл настроек bc-config.json) ,
+		angularMaterial (https://material.angular.io/guide/getting-started): yarn add @angular/material @angular/cdk @angular/animations hammerjs,
+		добавить в файл модуля приложения : import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+                                          @NgModule({
+                                            ...
+                                            imports: [BrowserAnimationsModule],
+                                            ...
+                                          })
+        импортировать в css тему: @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+        вставить файл нормализации : normalize.css  и импортировать его в главный стилевой styles.css файл @import "./normalize.css"
+        поддержка жестов : import 'hammerjs'
+        вставить шрифты angularMaterial в тег <head> : <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+3.Загрузить библиотеку firebase-tools, логироваться : firebase login, инициализировать проект : firebase init, развернуться на сервер : firebase deploy

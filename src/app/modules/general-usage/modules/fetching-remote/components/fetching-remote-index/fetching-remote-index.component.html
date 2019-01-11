@@ -1,0 +1,124 @@
+<mat-card >
+	<h4 class="scriptTextHeader">index.js</h4>
+	<p>Файл регистрации сервисного рабочего, запускаемый со страницы файла приложения.</p>
+	<app-code-block [context]="{header : 'Скриптовый файл', ext : 'index.js', backgroundColor : '#eeeeee'}" >
+<span class="dark-grey">// По этим адресам будут загружены ресурсы несколько раз
+// * `https` SSL protocol without allow origin header
+// * `http` non-cryptographic protocol</span>
+<span class="dark-blue" >var urls = &#123;</span>
+   <span class="dark-green" >'https-acao' </span><span class="dark-blue" >:</span> <span class="dark-green" >'https://mozorg.cdn.mozilla.net/media/img/styleguide/identity/mozilla/wordmark.b9f1818e8d92.png',
+   'https' </span><span class="dark-blue" >:</span> <span class="dark-green" >'https://static.squarespace.com/static/52d66949e4b0a8cec3bcdd46/t/52ebf67fe4b0f4af2a4502d8/1391195777839/1500w/Hello%20Internet.003.png',
+   'http' </span><span class="dark-blue" >:</span> <span class="dark-green" >'http://piotr.zalewa.info/downloads/mozilla.png'</span><span class="dark-blue"
+>&#125;;</span>
+<span class="dark-grey">// Существуют два режима получения удаленных ресурсов:
+// с установленным режимом ('cors') и без него ('no-cors')
+// (https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS).
+// Этот пример использует два подхода. </span>
+<span class="dark-blue" >var fetchModes = [</span><span class="dark-green" >'cors', 'no-cors'</span><span class="dark-blue" >];</span>
+<span class="dark-grey">// Проверка на существование зарегистрированного сервисного рабочего для
+// текущего хоста. Если его нет - его регистрируем и перегружаем страницу
+// для немедленного получения контроля сервисным рабочим над страницей. </span>
+<span class="dark-purple" >navigator.</span><span class="dark-blue" >serviceWorker.getRegistration().then(function(</span><span class="dark-red" >registration</span><span class="dark-blue" >) &#123;  </span>
+   <span class="dark-grey">//Сама проверка</span>
+   <span class="dark-blue" >if (!</span><span class="dark-red" >registration</span> <span class="dark-blue" >|| !</span><span class="dark-red" >navigator.</span><span class="dark-blue" >serviceWorker.controller) &#123;</span>
+      <span class="dark-grey">//Регистрация сервисного рабочего </span>
+      <span class="dark-purple" >navigator.</span><span class="dark-blue" >serviceWorker.register(</span><span class="dark-green" >'./service-worker.js'</span><span class="dark-blue" >).then(function() &#123; </span>
+      <span class="dark-grey">//логирование действий</span>
+         <span class="dark-blue" >console.log(</span><span class="dark-green" >'Сервичный рабочий зарегистрирован, страница перезагружается!'</span><span class="dark-blue" >);</span>
+         <span class="dark-grey">//принудительная перезагрузка страницы </span>
+         <span class="dark-purple" >window.</span><span class="dark-blue" >location.reload();
+      &#125;);
+   &#125; else &#123;  </span>
+      <span class="dark-grey">//логирование существование сервисного рабочего </span>
+      <span class="dark-blue" >console.log(</span><span class="dark-green" >'DEBUG: Клиент находиться под контролем сервисного рабочего'</span><span class="dark-blue" >);
+      proceed();
+   &#125;
+&#125;); </span>
+<span class="dark-grey">//Подготовка запросов к запуску, формируя их из массива адресов
+// и массива (fetchModes) режимов cors. Вызов метода создания элементов изображений.</span>
+<span class="dark-blue" >function proceed() &#123; </span>
+   <span class="dark-grey">//цикл по массиву адресов   </span>
+   <span class="dark-blue" >for (var protocol in urls) &#123;</span>
+      <span class="dark-grey">//проверка свойства на принадлежность  </span>
+      <span class="dark-blue" >if (urls.hasOwnProperty(protocol)) &#123;</span>
+         <span class="dark-grey">//Вызов метода создания изображения </span>
+         <span class="dark-blue" >makeImage(protocol, urls[protocol]);  </span>
+         <span class="dark-grey">//Цикл по массиву режимов cors  </span>
+         <span class="dark-blue" >for (var index = 0; index < fetchModes.length; index++) &#123; </span>
+            <span class="dark-grey">//получение режима </span>
+            <span class="dark-blue" >var fetchMode = fetchModes[index];  </span>
+            <span class="dark-grey">//формирование объекта настройки</span>
+            <span class="dark-blue" >var init = &#123;  </span>
+               <span class="dark-brown" >method : </span><span class="dark-green" >'GET',</span>
+               <span class="dark-brown" >mode : </span><span class="dark-blue" >fetchMode,  </span>
+               <span class="dark-brown" >cache : </span><span class="dark-green" >'default'</span><span class="dark-blue" >
+            &#125;;</span>
+         <span class="dark-grey">//Вызов функции отправки запроса ресурса  </span>
+         <span class="dark-blue" >makeRequest(fetchMode, protocol, init)();
+         &#125;
+      &#125;
+   &#125;
+&#125;  </span>
+<span class="dark-grey">// Функция создания элемента изображения,
+// согласно переданному адресу, заставляя браузер выполнить запрос
+// без перехвата сервисным рабочим, поскольку в нем устагновлен фильтр </span>
+<span class="dark-blue" >function makeImage(protocol, url) &#123;
+   var section = </span><span class="dark-green" >'img-' </span><span class="dark-blue" >+ protocol;
+   var image = document.createElement(</span><span class="dark-green" >'img'</span><span class="dark-blue" >);
+   image.src = url;
+   document.getElementById(section).appendChild(image);
+&#125; </span>
+<span class="dark-grey">// Функция создания запроса  </span>
+<span class="dark-blue" >function makeRequest(fetchMode, protocol, init) &#123;
+   return function() &#123;
+      var section = protocol + </span><span class="dark-green" >'-'</span><span class="dark-blue" >+ fetchMode;
+      var url = urls[protocol]; </span>
+      <span class="dark-grey">// Выполнение запроса удаленного ресурса непосредственно,
+      // минуя сервисного рабочего. </span>
+      <span class="dark-purple" >fetch</span><span class="dark-blue" >(url, init).then(function</span><span class="dark-red" >response</span><span class="dark-blue" >) &#123; </span>
+         <span class="dark-grey">//Подготовка логирование удачного выполнения</span>
+         <span class="dark-blue" >fetchSuccess(</span><span class="dark-red" >response</span><span class="dark-blue" >, url, section);
+         &#125;).catch(function(</span><span class="dark-red" >error</span><span class="dark-blue" >) &#123; </span>
+         <span class="dark-grey">//Подготовка логирования не удачного выполнения   </span>
+         <span class="dark-blue" >fetchCatch(</span><span class="dark-red" >error</span><span class="dark-blue" >, url, section);
+         &#125;);</span>
+      <span class="dark-grey">// Запрос ресурса, используя сервисного рабочего
+      // в качестве прокси, формирования специального адреса
+      //на который установлен фильтр. </span>
+      <span class="dark-purple" >fetch(</span><span class="dark-green" >'./cookbook-proxy/'</span><span class="dark-blue" >+ url, init).then(function(</span><span class="dark-red" >response</span><span class="dark-blue" >) &#123;     </span>
+         <span class="dark-grey">//Подготовка логирования удачного выполнения</span>
+         <span class="dark-blue" >fetchSuccess(</span><span class="dark-red" >response,</span> <span class="dark-green" >'./cookbook-proxy/'</span><span class="dark-blue" >+ url, </span><span class="dark-green" >'proxy-' </span><span class="dark-blue" >+ section);
+         &#125;).catch(function(</span><span class="dark-red" >error</span><span class="dark-blue" >) &#123;</span>
+         <span class="dark-grey">//Подготовка логирования не удачного выполнения   </span>
+         <span class="dark-blue" >fetchCatch(</span><span class="dark-red" >error, </span><span class="dark-green" >'./cookbook-proxy/'</span> <span class="dark-blue" >+ url, </span><span class="dark-green" >'proxy-'</span> <span class="dark-blue" >+ section);
+     &#125;);
+  &#125;;
+&#125;  </span>
+
+<span class="dark-grey">// Функция логирования в консоль и запуск логирования и интерфейс  </span>
+<span class="dark-blue" >function fetchSuccess(response, url, section) &#123;
+   if (response.ok) &#123;
+      console.log(section,</span> <span class="dark-green" >'УДАЧНО: ',</span><span class="dark-blue" >url, response);
+      log(section, </span><span class="dark-green" >'УДАЧНО'</span><span class="dark-blue" >);
+   &#125; else &#123;
+      console.log(section, </span><span class="dark-green" >'НЕ УДАЧНО:'</span><span class="dark-blue" >, url, response);
+      log(section, </span><span class="dark-green" >'НЕ УДАЧНО: тип ответа: '</span> <span class="dark-blue" >+ response.type +</span>
+      <span class="dark-green" >', статус ответа: ' </span><span class="dark-blue" >+ response.status,</span> <span class="dark-green" >'error'</span><span class="dark-blue" >);
+   &#125;
+&#125;
+
+function fetchCatch(error, url, section) &#123;
+  console.log(section, </span><span class="dark-greena" >'ОШИБКА: '</span><span class="dark-blue" >, url, error);
+   log(section, </span><span class="dark-green" >'ОШИБКА: '</span><span class="dark-blue" >+ error, </span><span class="dark-green" >'error'</span><span class="dark-blue" >);
+&#125; </span>
+<span class="dark-grey">//Функция логирования в интерфейс пользователя  </span>
+<span class="dark-blue" >function log(section, message, type) &#123;
+   var sectionElement = document.getElementById(section);
+   var logElement = document.createElement(</span><span class="dark-green" >'p'</span><span class="dark-blue" >);
+   if (type) &#123;
+      logElement.classList.add(type);
+   &#125;
+  logElement.textContent = message;
+  sectionElement.appendChild(logElement);
+&#125;</span></app-code-block>
+</mat-card>

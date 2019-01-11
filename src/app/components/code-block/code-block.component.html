@@ -1,0 +1,8 @@
+<div class="exampleCode" >
+	<div class="headerCode">
+		<span class="headerText">{{context.header}}</span>
+		<mat-icon class="icon" *ngIf="context.icon">{{context.icon}}</mat-icon>
+		<span class="extension">{{context.ext}}</span>
+	</div>
+	<pre id="preElem" [style.backgroungColor]="context.backgroundColor"><ng-content></ng-content></pre>
+</div>

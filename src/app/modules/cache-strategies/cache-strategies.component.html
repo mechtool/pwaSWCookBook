@@ -1,0 +1,32 @@
+<mat-card>
+	<h2>Стратегии кэширования</h2>
+	<p>Этот группирующий блок содержит примеры стратегии кэширования в приложениях. В своей основе они состоят из файла приложения <span class="dark-blue">index.html</span>, который по структуре одинаков для всех примеров (кроме поясняющих надписей, относящихся к конкретному примеру), он загружает файл скрипта <span class="dark-blue">index.js</span>, который, в свою очередь, загружает файл сервисного рабочего <span class="dark-blue">service-worker.js</span> , содержащего логику стратегии кэширования отдельного примера. Поскольку сервер этого приложения реализован на <span class="dark-blue">Google Cloud Functions</span>, его реальная реализация немного отличается от той, что представлена в текущих примерах и адаптирована для работы на <span class="dark-blue">Express.js</span>, с сохранением логики понимания процесса регулировки кэширования ресурсов. Файлы таблиц стилей приложения не представлены.</p>
+	<app-flex-list [list]="recipes"></app-flex-list>
+	<h3 class="scriptTextHeader">index.html</h3>
+	<app-code-block [context]="{header : 'Файл приложения', ext : 'index.html', backgroundColor : '#eeeeee'}" >
+<span class="dark-purple" >&#60;!DOCTYPE html&#62;</span>
+<span class="dark-blue" >&#60;html lang=</span><span class="dark-green" >"en"</span><span class="dark-blue" >&#62;</span>
+   <span class="dark-blue" >&#60;head&#62;
+      &#60;meta charset=</span><span class="dark-green" >"UTF-8"&#62;</span>
+      <span class="dark-blue" >&#60;title&#62;Сеть или кэш &#60;title&#62;</span>
+      <span class="dark-blue" >&#60;script type=</span><span class="dark-green" >"text/javascript"</span> <span class="dark-blue" >src=</span><span class="dark-green" >"./index.js"</span><span class="dark-blue" >&#60;/script&#62;</span>
+   <span class="dark-blue" >&#60;/head&#62;
+   &#60;body&#62;
+         &#60;div class=</span><span class="dark-green" >"demoContainer"</span><span class="dark-blue">&#62;
+            &#60;div class=</span><span class="dark-green" >"iframesContainer"</span><span class="dark-blue">&#62;
+               &#60;div class=</span><span class="dark-green" >"notControlledCard card"</span><span class="dark-blue">&#62;
+                  &#60;div class=</span><span class="dark-green" >"toolbarHeader"</span><span class="dark-blue">&#62;Всегда синхронизирована с сервером.&#60;/div&#62;
+                  &#60;iframe onload=</span><span class="dark-green" >"onLoadIframe(event)"</span> <span class="dark-blue" >class=</span><span class="dark-green" >"notControlled"</span> <span class="dark-blue" >src=</span><span class="dark-green" >"./not-controlled.html"</span><span class="dark-blue">&#62;&#60;/iframe&#62;
+                  &#60;div&#62;</span><span class="dark-brown" >Запрос картинки происходит со страницы не контролируемой сервисным рабочим,<br> поэтому при перезагрузке, адрес изображения всегда синхронизирован с адресом картинки, генерируемой сервером. <br>Адрес новой картинки на сервере генерируется каждые 10 секунд.</span><span class="dark-blue" >&#60;/div&#62;
+               &#60;/div&#62;
+               &#60;div class=</span><span class="dark-green" >"controlledCard card"</span><span class="dark-blue">&#62;
+                  &#60;div class=</span><span class="dark-green" >"toolbarHeader"</span><span class="dark-blue">&#62;Сеть или кэш.&#60;/div&#62;
+                  &#60;iframe onload=</span><span class="dark-green" >"onLoadIframe(event)"</span> <span class="dark-blue" >class=</span><span class="dark-green" >"controlled"</span> <span class="dark-blue" >src=</span><span class="dark-green" >"./controlled.html"</span><span class="dark-blue">&#62;&#60;/iframe&#62;
+                  &#60;div&#62;</span><span class="dark-brown" >Этот запрос исходит от контролируемой сервисным рабочим страницы,<br> поэтому изображение будет загружено через него. <br>Он будет пытаться получить обновленный контент с сервера, но только в том случае, <br>если запрос будет длиться менее 400ms, иначе, он загрузит картинку из кэша.</span><span class="dark-blue" >&#60;/div&#62;
+               &#60;/div&#62;
+            &#60;/div&#62;
+            <span class="dark-blue">&#60;button onclick=</span><span class="dark-green">"onClickReload()"</span><span class="dark-blue">&#62;Перезагрузить&#60;/button&#62;</span>
+         &#60;/div&#62;
+   &#60;/body&#62;
+&#60;/html&#62;</span></app-code-block>
+</mat-card>
